@@ -9,5 +9,16 @@ namespace Biblioteca
     public class Entidade
     {
         public int id = 0;
+
+        public void loadFromDataString(string dataString) 
+        {
+            string[] dados = dataString.Split(';');
+            this.id = int.Parse(dados[0]);
+        }
+
+        public override string ToString()
+        {
+            return $"{id}";
+        }
     }
 }

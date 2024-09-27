@@ -13,5 +13,22 @@ namespace Biblioteca
         public string endereco = "";
         public string email = "";
         public bool banido = false;
+
+        public void loadFromDataString(string dataString)
+        {
+            string[] dados = dataString.Split(";");
+
+            this.id = Convert.ToInt32(dados[0]);
+            this.nome = dados[1];
+            this.telefone = dados[2];
+            this.endereco = dados[3];
+            this.email = dados[4];
+            this.banido = Convert.ToBoolean(dados[5]);
+        }
+
+        public override string ToString()
+        {
+            return $"{id};{nome};{telefone};{endereco};{email};{banido}";
+        }
     }
 }
