@@ -61,11 +61,34 @@ namespace Biblioteca
             return emprestimo;
         }
 
-        public void cadastrarLivro() {
+        public void cadastrarLivro()
+        {
             Livro novolivro = new Livro();
-            //TODO preencher os dados do livro
+            if (livros.Count == 0) novolivro.id = 1;
+            else novolivro.id = livros.Max(q => q.id) + 1;
+
+            Console.Clear();
+            ConsoleUtils.WriteTitle("Adicionando novo Livro");
+            ConsoleUtils.WriteTitle("Dados da Obra");
+            Console.Write("\n");
+            novolivro.autor = ConsoleUtils.textField("Autor");
+            novolivro.titulo = ConsoleUtils.textField("Titulo");
+            novolivro.edicao = ConsoleUtils.textField("Edição");
+            novolivro.anoPublicacao = ConsoleUtils.numericField("Ano de Publicação",30,1900);
+            
+            ConsoleUtils.WriteTitle("Localização do volume no acervo");
+            Console.Write("\n");
+            novolivro.corredor = ConsoleUtils.numericField("Corredor", 30,1);
+            novolivro.estante = ConsoleUtils.numericField("Estante", 30, 1);
+            novolivro.prateleira = ConsoleUtils.numericField("Prateleira", 30, 1);
+            
             livros.Add(novolivro);
+            
+            Console.WriteLine("\n\nNovo livro adicionado com sucesso!");
+            Console.WriteLine("Pressione qualquer tecla para continuar...");
+            Console.ReadKey();
         }
+
         public void marcarLivroComoPerdido() 
         {
             Livro livro = selecionarLivro();
@@ -92,12 +115,13 @@ namespace Biblioteca
         public void cadastrarNovoUsuario() 
         {
             Usuario novoUsuario = new Usuario();
+            if (usuarios.Count == 0) novoUsuario.id = 1;
+            else novoUsuario.id = usuarios.Max(q => q.id) + 1;
             //TODO preencher os dados do usuário
             usuarios.Add(novoUsuario);
             salvarDados();
         }
 
-        
         public void atualizarCadastroUsuario() 
         {
             Usuario usuario = selecionarUsuario();
@@ -121,13 +145,16 @@ namespace Biblioteca
             Usuario usuario = selecionarUsuario();
             if (usuario == null) return;
 
-            Emprestimo emprestimo = new Emprestimo();
-            emprestimo.idLivro = livro.id;
-            emprestimo.idUsuário = usuario.id;
-            livro.disponivel = false;
-            emprestimo.dataDevolucao = emprestimo.dataEmprestimo.AddDays(3);
+            Emprestimo novoEmprestimo = new Emprestimo();
+            if (emprestimos.Count == 0) novoEmprestimo.id = 1;
+            else novoEmprestimo.id = emprestimos.Max(q => q.id)+1;
 
-            emprestimos.Add(emprestimo);
+            novoEmprestimo.idLivro = livro.id;
+            novoEmprestimo.idUsuario = usuario.id;
+            livro.disponivel = false;
+            novoEmprestimo.dataDevolucao = novoEmprestimo.dataEmprestimo.AddDays(3);
+
+            emprestimos.Add(novoEmprestimo);
             salvarDados();
         }
         public void devolverLivro() 

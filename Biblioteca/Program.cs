@@ -1,4 +1,6 @@
 ﻿
+using Biblioteca;
+
 Biblioteca.Biblioteca biblioteca = new Biblioteca.Biblioteca();
 int selectedOption = 0;
 
@@ -6,11 +8,7 @@ while (true)
 {
     Console.Clear();
 
-    Console.BackgroundColor = ConsoleColor.Yellow;
-    Console.ForegroundColor = ConsoleColor.Black;
-    Console.WriteLine("---------- Bem vindo à biblioteca ----------");
-    Console.BackgroundColor = ConsoleColor.Black;
-    Console.ForegroundColor = ConsoleColor.Gray;
+    ConsoleUtils.WriteTitle("Bem vindo à biblioteca");
 
     Console.WriteLine("     Cadastrar Novo Livro");
     Console.WriteLine("     Marcar Livro como perdido");
@@ -26,7 +24,7 @@ while (true)
     Console.SetCursorPosition(0, 1 + selectedOption);
     Console.ForegroundColor = ConsoleColor.Yellow;
     Console.Write(">");
-    Console.SetCursorPosition(43, 1 + selectedOption);
+    Console.SetCursorPosition(119, 1 + selectedOption);
     Console.Write("<");
     Console.ForegroundColor = ConsoleColor.White;
 
@@ -43,8 +41,8 @@ while (true)
     }
     else if (input.Key == ConsoleKey.Enter)
     {
-        if (selectedOption == 9) { return; }
-        //Todo chamar a respectiva função
+        if (selectedOption == 9) { Console.Clear();  return; }
+        if (selectedOption == 0) { biblioteca.cadastrarLivro(); }
         selectedOption = 0;
     }
 }
